@@ -57,5 +57,25 @@ Template.Edit_Contact_Page.events({
       instance.messageFlags.set(displayErrorMessages, true);
     }
   },
-});
+},
+
+Template.Edit_Contact_Page.events({
+  'click .delete'(event, instance) {
+
+    // Get name (text field)
+    const first = event.target.First.value;
+    const last = event.target.Last.value;
+    const address = event.target.Address.value;
+    const telephone = event.target.Telephone.value;
+    const email = event.target.Email.value;
+
+    const updatedContactData = { first, last, address, telephone, email };
+    Contacts.remove(FlowRouter.getParam('_id'));
+    // Invoke clean so that newStudentData reflects what will be inserted.
+    // Determine validity.
+    instance.messageFlags.set(displayErrorMessages, false);
+    FlowRouter.go('Home_Page');
+  },
+}));
+
 
